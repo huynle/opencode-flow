@@ -27,9 +27,20 @@ export class GitManager {
             return repoPath;
         }
 
-        console.log(`Cloning ${cloneUrl} to ${repoPath}...`);
+        console.log(`Cloning to ${repoPath}...`);
+
+        let finalCloneUrl = cloneUrl;
+        if (process.env.GITHUB_TOKEN && cloneUrl.startsWith('https://github.com/')) {
+            // Inject token: https://TOKEN@github.com/...
+            finalCloneUrl = cloneUrl.replace('https://', `https://${process.env.GITHUB_TOKEN}@`);
+        } else if (process.env.GITHUB_TOKEN && !cloneUrl.startsWith('http')) {
+            // Assume format matches github.com and force HTTPS with token if it was SSH
+            finalCloneUrl = `https://${process.env.GITHUB_TOKEN}@github.com/${owner}/${repo}.git`;
+        }
+
         await fs.ensureDir(path.dirname(repoPath));
-        await execAsync(`git clone ${cloneUrl} ${repoPath}`);
+        await execAsync(`git clone ${finalCloneUrl} ${repoPath}`);
+
 
         return repoPath;
     }

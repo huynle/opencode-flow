@@ -10,12 +10,10 @@
   },
   "dependencies": {
     "fastify": "^4.26.2",
-    "better-sqlite3": "^9.4.3",
     "zod": "^3.22.4",
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.9",
     "@types/node": "^20.11.28",
     "@types/fs-extra": "^11.0.4",
     "bun-types": "latest"

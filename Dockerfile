@@ -45,5 +45,8 @@ RUN mkdir -p /root/gh
 # Expose API port
 EXPOSE 3000
 
-# Start the server
+# Start script
+COPY start.sh /app/start.sh
+ENTRYPOINT ["/app/start.sh"]
 CMD ["bun", "run", "start"]
+

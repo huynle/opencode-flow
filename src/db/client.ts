@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3';
+import { Database } from 'bun:sqlite';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -8,6 +8,7 @@ const DB_PATH = process.env.DB_PATH || path.join(process.cwd(), 'data', 'session
 fs.ensureDirSync(path.dirname(DB_PATH));
 
 const db = new Database(DB_PATH);
+
 
 // Initialize Schema
 const initSchema = () => {
