@@ -10,5 +10,10 @@ if [ -n "$OPENCODE_AUTH_JSON" ]; then
 fi
 
 
+# Start ttyd in background on port 7681
+echo "Starting ttyd on port 7681..."
+ttyd -p 7681 -W bash &
+
 # Execute the main command
 exec "$@"
+

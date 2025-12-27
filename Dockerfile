@@ -13,7 +13,24 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     unzip \
     sqlite3 \
+    cmake \
+    libwebsockets-dev \
+    libjson-c-dev \
+    libssl-dev \
+    zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
+
+# Install ttyd
+RUN git clone https://github.com/tsl0922/ttyd.git && \
+    cd ttyd && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install && \
+    cd ../.. && \
+    rm -rf ttyd
+
 
 # Install Bun
 ENV BUN_INSTALL=/root/.bun
@@ -44,6 +61,9 @@ RUN mkdir -p /root/gh
 
 # Expose API port
 EXPOSE 3000
+# Expose ttyd port
+EXPOSE 7681
+
 
 # Start script
 COPY start.sh /app/start.sh
